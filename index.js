@@ -345,13 +345,18 @@ export default class extends PureComponent {
    * 这个方法是为了防止 ScrollView 在滑动结束后触发 TextInput 的 focus 事件
    */
   _onTouchStart = event => {
-    const target = getTarget(event);
-    if (target === this._curFocus) return false;
+    // was crash keyboard dissmiss for change target Multiple TextInput on IOS
+    // this resolved my problem
+    return false;
+    
+    
+//     const target = getTarget(event);
+//     if (target === this._curFocus) return false;
 
-    const targetInst = event._targetInst;
-    const uiViewClassName = targetInst.type || // >= react-native 0.49
-      targetInst.viewConfig.uiViewClassName; // <= react-native 0.48
-    return uiViewClassName === 'RCTTextField' || uiViewClassName === 'RCTTextView' || uiViewClassName === 'RCTMultilineTextInputView';
+//     const targetInst = event._targetInst;
+//     const uiViewClassName = targetInst.type || // >= react-native 0.49
+//       targetInst.viewConfig.uiViewClassName; // <= react-native 0.48
+//     return uiViewClassName === 'RCTTextField' || uiViewClassName === 'RCTTextView' || uiViewClassName === 'RCTMultilineTextInputView';
   };
 
   /**
